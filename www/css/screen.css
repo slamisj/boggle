@@ -1,0 +1,94 @@
+body {
+	font: 16px/1.5 "Trebuchet MS", "Geneva CE", lucida, sans-serif;
+	color: #000;
+	background-color: #fff;
+  text-align: center;
+}
+
+h1 a, h2 a{
+  color: orange;
+  text-decoration: none;
+}
+.fb h1 a, .fb h2 a{
+  color: #526DA4;
+  text-decoration: none;
+}
+h1 a{
+	font-size: 130%;
+}
+h1 a:hover, h2 a:hover{
+  color: white;
+  background: orange;
+  text-decoration: none;
+}
+.fb h1 a:hover, .fb h2 a:hover{
+  color: white;
+  background: #526DA4;
+  text-decoration: none;
+}
+
+#ajax-spinner {
+	margin: 15px 0 0 15px;
+	padding: 13px;
+	background: white url('../images/spinner.gif') no-repeat 50% 50%;
+	font-size: 0;
+	z-index: 123456;
+	display: none;
+}
+#motto {
+  font-style: italic;
+}
+div.flash {
+	color: black;
+	background: #FFF9D7;
+	border: 1px solid #E2C822;
+	padding: 1em;
+	margin: 1em 0;
+}
+
+a[href^="error:"] {
+	background: red;
+	color: white;
+}
+span.online {
+  font-weight: bold;
+  color: red;
+  cursor: pointer;
+}
+.result {
+  font-weight: bold;
+}
+.result.DUPLICATE {
+  color: orange;
+}
+.result.I, .result.MI {
+  color: red;
+}
+.result.E {
+  color: red;
+}
+.result.N, .result.C, .result.MC, .result.D {
+  color: green;
+}
+.result.W {
+  color: gray;
+  text-decoration: line-through;
+}
+.result .small {
+  font-size: 100%;               
+}
+.button #giveUp {
+    background: #cc0000;
+  }
+.button #delAll {
+  background: #0000cc;
+}
+.button #del {
+  background: #8888cc;
+}
+.button #addWord {
+  background: #00cc00;
+}
+span.anonymous {
+  color: gray;
+}

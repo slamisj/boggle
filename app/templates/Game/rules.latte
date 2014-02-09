@@ -1,0 +1,71 @@
+{block content}
+{if !$embedded}<h1>Jak hrát</h1>{/if}
+<div class="text">
+<p>Cílem je v časovém limitu tří minut nalézt co nejvíce minimálně {if $EN}<b>TŘÍPÍSMENNÝCH</b>{else}čtyřpísmenných{/if} slov.</p>
+<p>Po startu hry je zobrazena mřížka se 16 písmeny. 
+Tvým úkolem je hledat zde {if $EN}<b>ANGLICKÁ</b>{else}česká{/if} slova, splňující:</p>
+<ol>
+<li>písmena tvoří &bdquo;hada&ldquo;, tedy navazují na sebe alespoň rohem,</li>
+<li>délka minimálně {if $EN}<b>TŘI</b>{else}4{/if} písmena,</li>
+<li>jedno pole mřížky není ve slově použito vícekrát (tj. slovo se dvěma stejnými písmeny můžeš vytvořit pouze pokud je písmeno v mřížce obsažené dvakrát).</li>
+</ol>
+<p>Slova je nutné zadávat včetně diakritiky, ta se objeví v pravé části mřížky po zvolení daného písmene.</p>
+<p>Kromě písmen hrací plocha obsahuje též tlačítka pro 
+{if !$embedded}
+<span class="button" id="addWord">odeslání slova (OK)</span>,
+<span class="button" id="del">smazání písmena (&lt;)</span> a
+<span class="button" id="delAll">smazání rozepsaného slova (&lt;&lt;)</span>.
+{else}
+<span class="button" id="addWord">odeslání slova (-&gt;)</span>,
+<span class="button" id="delAll">smazání rozepsaného slova (-)</span> a
+<span class="button" id="del">předčasné ukončení hry (X)</span>.
+{/if}
+</p>
+<p>U každého zadaného slova je barevně zobrazen jeho stav, v závorce též počet udělených bodů.</p>
+<p>Stavy:</p>
+<ul>
+<li><span class="result N">uznané slovo</span> &ndash; nikdo jiný toto slovo neobjevil, získáváš n-{if $EN}<b>2</b>{else}3{/if}  bodů, kde n je délka slova</li>
+<li><span class="result DUPLICATE">duplicitní slovo</span> &ndash; toto slovo našli i další hráči, body získáváš/nezískáváš v závislosti na zvoleném druhu hry</li>
+<li><span class="result I">chybné slovo</span> &ndash; toto slovo nebylo nalezeno ve slovníku, body nezískáváš</li>
+</ul>
+<p>Vyhrává hráč s největším počtem bodů.</p>
+<p>Klíčem k úspěchu jsou hrátky s diakritikou, např. z posloupnosti CARU lze vytvořit
+slova ČÁRU, CÁRU, CARU, CÁRŮ (a získat čtyři body namísto jednoho).</p>
+{if !$embedded}
+<p>Hra je určena primárně pro dotykové ovládání, ovšem chceš-li použít klávesnici, stačí kliknout do textového pole nad mřížkou, 
+poté lze zadávat vstup z klávesnice a enterem odesílat slova.</p>
+<p>Čas od času můžeš hrát novou hru, přestože sis vybral hru stávající, je to kvůli tomu, aby si i ostatní mohli zahrát s tebou (tj. aby viděli tvůj výsledek ihned po skončení hry).</p>
+{/if}
+</div>
+<style>
+.text {
+  text-align: left;
+}
+.button#giveUp {
+    color: #cc0000;
+  }
+.button#del {
+  color: #8888cc;
+}
+.button#delAll {
+  color: #0000cc;
+}
+.button#addWord {
+  color: #00cc00;
+}
+.result, .button {
+  font-weight: bold;
+}
+.result.DUPLICATE {
+  color: orange;
+}
+.result.I {
+  color: red;
+}
+.result.E {
+  color: blue;
+}
+.result.N, .result.C, .result.D {
+  color: green;
+}
+</style>

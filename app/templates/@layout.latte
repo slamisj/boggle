@@ -1,0 +1,50 @@
+{**
+ * My Application layout template.
+ *
+ * @copyright  Copyright (c) 2010 John Doe
+ * @package    MyApplication
+ *
+ * @param string   $rootPath web base path
+ * @param string   $robots   tell robots how to index the content of a page (optional)
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<meta name="description" content="Boggle - návyková hra se slovy, online verze, česky i anglicky. Nic nestahuj, zahraj si proti kamarádům, i když zrovna nejsou připojeni. Najdi za tři minuty více slov než ostatní. Buď originální. Nejlepší na dotek.">
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+	
+
+	<title>Boggle - návyková hra se slovy</title>                                                         <meta property="og:title" content="Boggle" />
+<meta property="og:type" content="game" />
+<meta property="og:url" content="http://boggle.cz/" />
+<meta property="og:image" content="http://boggle.cz/images/boggle.png" />
+<meta property="og:site_name" content="Boggle" />
+<meta property="og:description" content="Návyková hra se slovy" />
+<meta property="fb:admins" content="1150239292" />
+
+	<link rel="stylesheet" media="screen,projection,tv" href="{$rootPath}/css/screen.css" type="text/css">
+	<link rel="stylesheet" media="print" href="{$rootPath}/css/print.css" type="text/css">
+	<link rel="shortcut icon" href="{$rootPath}/favicon.ico" type="image/x-icon">
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script type="text/javascript" src="{$rootPath}/js/netteForms.js"></script>
+	{block head}{/block}
+</head>
+
+<body{if $FB} class="fb"{/if}>
+	<script> document.body.className+=' js' </script>
+  {if !$embedded}
+  <h1 id="title"><a n:href="Homepage:default" title="Přejít na úvodní stránku">Boggle{if $EN} anglicky{/if}</a></h1>
+  {/if}
+  
+  
+	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+  
+
+	{include #content} 
+</body>
+</html>

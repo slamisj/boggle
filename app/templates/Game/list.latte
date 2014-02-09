@@ -1,0 +1,41 @@
+{block content}
+<h1>Žebříček</h1>
+<p>Pozn.: Počítají se pouze hry s minimálně třemi hráči, pořadí je sestaveno dle průměrného počtu bodů.</p>
+<table>
+<tr><th>#</th><th>hráč</th><th>body</th><th>hry</th><th>průměr</th></tr>
+{foreach $result as $row}
+  <tr class="{=$iterator->getCounter() % 2 ? "odd" : "even"}">
+      <td>{=$iterator->getCounter()}</td>
+      <td>{=$row["name"]}</td>
+      <td>{=$row["points"]}</td>
+      <td>{=$row["num"]}</td>  
+      <td>{=$row["avgpoints"]|number:2}</td>     
+  </tr>
+{/foreach}
+</table>
+
+
+<style>
+  
+  table {
+    margin: 0 auto;
+    text-align: left;
+    cell-padding: 0;
+    cell-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  .odd td {
+    background: #ffffff;
+  }
+  .even td {
+    background: #eeeeee;
+  }
+  table th {
+    text-align: center;
+  }
+  table td {
+    padding: 0 1em;
+    border: 0;
+  }
+</style>

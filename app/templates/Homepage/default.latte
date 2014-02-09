@@ -1,0 +1,53 @@
+{block content}
+<p id="motto">{!=$motto}</p>
+{if $username}
+  {if $user->isAnonymous}
+  <p>Anonymní režim! Nebudeš mít k dispozici statistiky a své odehrané hry, doporučujeme 
+  <a n:href="Sign:reg">registraci</a>.</p>
+  {/if}
+  <p>{=$username}</p>
+  <h2><a n:href="Game:play" title="Automatický výběr hry">Hraj</a></h2>
+  {if !$user->isAnonymous}
+  <h2><a n:href="Game:join" title="Přehled her, ke kterým se můžeš přidat">Přidej se</a></h2>
+  <h2><a n:href="Game:my" title="Historie tvých her">Moje hry</a></h2>
+  <h2><a n:href="Game:list" title="Pořadí hráčů">Žebříček</a></h2>
+  {/if}
+  <h2><a n:href="Game:rules" title="Jak na to">Pravidla</a></h2>
+{else}
+  <h2><a n:href="Game:rules" title="Jak na to">Pravidla</a></h2>
+  <h2><a n:href="Sign:in" title="Pouze pokud jsi již registrován!">Přihlaš se</a></h2>
+  <h2><a n:href="Sign:reg" title="Zaregistruj se">Registrace</a></h2>
+  <h2><a n:href="Game:try" title="Zahraj si bez registrace">Zkusit</a></h2>
+{/if}
+<h2><a n:href="Game:contact" title="Napiš mi">Kontakt</a></h2>
+<h2><a n:href="Game:travel" title="Vytiskni si Boggle na cesty">Na cesty</a></h2>
+<p>Slova:
+{if $EN}<b>anglická</b>, <small><a href="http://boggle.cz/">změnit na česká</a></small>
+{else}
+<b>česká</b>, <small><a href="http://boggle.cz/en/">změnit na anglická</a></small>
+{/if}
+</p>
+{if $username}
+{if $user->isMobile}
+<p>Verze: <b>mobilní</b>, <small><a n:href="Game:mobile, 0" title="Standardní verze">změnit na klasickou</a></small></p>
+{else}
+<p>Verze: <b>klasická</b>, <small><a n:href="Game:mobile, 1" title="Mřížka přes celou obrazovku, skryje seznam slov">změnit na mobilní</a></small></p>
+{/if}
+<p>
+  Bodování:
+  {if $user->isAll}
+    <b>vše</b>, <small><a n:href="Game:all, 0" title="Boduj pouze slova, která nenašel nikdo jiný, standardní bodování hry Boggle">změnit na pouze unikátní</a></small>
+  {else}
+    <b>unikátní slova</b>, <small><a n:href="Game:all, 1" title="Boduj všechna platná slova, vhodné pro hru mnoha hráčů">změnit na všechna slova</a></small>
+  {/if}
+</p>
+<h2 class="small"><a n:href="Sign:out" title="Odhlášení">Odhlaš se</a></h2>
+{/if}
+<p>{=$result["numusers"]} hráčů, {=$result["numgames"]} her.</p>
+<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fboggle.cz%2F&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; margin: 0 auto; width:450px; height:21px;" allowTransparency="true"></iframe>
+<a href="http://www.toplist.cz/stat/1424758" title="Statistiky návštěvnosti"><script language="JavaScript" type="text/javascript">
+<!--
+document.write('<img src="http://toplist.cz/count.asp?id=1424758&logo=s&http='+escape(document.referrer)+'&t='+escape(document.title)+
+'" width="14" height="14" border=0 alt="TOPlist" />');
+//--></script><noscript><img src="http://toplist.cz/count.asp?id=1424758&logo=s" border="0"
+alt="TOPlist" width="14" height="14" /></noscript></a>

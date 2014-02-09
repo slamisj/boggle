@@ -1,0 +1,52 @@
+{block content}
+<h1>Přidej se</h1>
+<p>Pozn.: Čas od času budeš hrát novou hru, přestože sis vybral hru stávající, je to kvůli tomu, aby si i ostatní mohli zahrát s tebou (tj. aby viděli tvůj výsledek ihned po skončení hry).</p>
+<table>
+<tr><th>#</th><th title="kdy byla naposledy hrána">datum</th><th>hráči (dle pořadí)</th></tr>
+{foreach $result["games"] as $game}
+  <tr class="{=$iterator->getCounter() % 2 ? "odd" : "even"}">
+      <td><a title="hraj" href="{link Game:play, $game["idgame"]}">{=$game["idgame"]}</a></td>
+      <td>{=$game["start"]}</td>
+      <td>
+      {foreach $game["list"] as $row}{if $row["user"]["isanonymous"] == 1}<span class="anonymous">{/if}{=$row["user"]["name"]}{if $row["user"]["isanonymous"] == 1}</span>{/if}{if $row["user"]["online"]}<span class="online" title="probíhající hra">!</span>{/if}{=$iterator->last ? "" : ", "}{/foreach}</td>       
+  </tr>
+{/foreach}
+</table>
+{if $result["prev"] >= 0 || $result["next"] >= 0}
+<div class="paging">
+{if $result["prev"] >= 0}
+<a n:href="Game:join $result['prev']" title="Předchozí strana">&lt;</a>
+{else}&lt;
+{/if} | 
+{if $result["next"] >= 0}
+<a n:href="Game:join $result['next']" title="Další strana">&gt;</a>
+{else}&gt;
+{/if}
+</div>
+{/if}
+
+
+<style>
+  
+  table {
+    margin: 0 auto;
+    text-align: left;
+    cell-padding: 0;
+    cell-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  .odd td {
+    background: #ffffff;
+  }
+  .even td {
+    background: #eeeeee;
+  }
+  table th {
+    text-align: center;
+  }
+  table td {
+    padding: 0 1em;
+    border: 0;
+  }
+</style>

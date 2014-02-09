@@ -1,0 +1,52 @@
+{block content}
+{foreach $games as $game}
+<table id="game">
+{foreach $game as $letter}
+{if $iterator->getCounter() - 1 % 4 == 0}<tr>{/if}
+         <td class="letter{if $letter == "ch"} small{/if}">
+         {=$letter|upper}
+         </td>
+{if $iterator->getCounter() % 4 == 0}
+</tr>{/if}         
+{/foreach}
+</table>
+{/foreach}
+
+<style>
+  table#game {
+    margin: 1em;
+    float: left;
+    font-size: 150%;
+  }
+  table#game td{
+    border: 1px solid grey;
+    text-align: center;
+  }
+  table#game td.small {
+    font-size: 60%;
+  }
+  table {
+    margin: 0 auto;
+    text-align: left;
+    cell-padding: 0;
+    cell-spacing: 0;
+    border-collapse: collapse;
+  }
+  table tr.myResult td {
+    border-top: 2px solid red;
+    border-bottom: 2px solid red;
+  }
+  .odd td {
+    background: #ffffff;
+  }
+  .even td {
+    background: #eeeeee;
+  }
+  table th {
+    text-align: center;
+  }
+  table td {
+    padding: 0 1em;
+    border: 0;
+  }
+</style>

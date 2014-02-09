@@ -1,0 +1,19 @@
+{block content}
+<style>
+ table {
+  text-align: center;
+  margin: 0 auto;
+ }
+ h3 {
+  color: orange;
+ }
+</style>
+<h1>Schvalování slov</h1>
+
+  <h3>{$word["word"]["text"]}</h3> 
+  <p>{$word["word"]["id"]}/{$word["word"]["status"]}/{$word["num"]}</p>
+  <p><a n:href="Game:setWord id => $word['word']['id'], status => MC" title="Schválit">Schválit</a>
+  /<a n:href="Game:setWord id => $word['word']['id'], status => MI" title="Zamítnout">Zamítnout</a></p>
+  {!$word["word"]["context"]}
+</p>
+<p><small>Ano: váho, lejí, zuzi | Ne: váli, cizojazyčná</small></p>

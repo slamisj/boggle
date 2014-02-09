@@ -1,0 +1,50 @@
+{block content}
+<h1>Moje hry</h1>
+<p>Celkem jsi hrál {=$result["numgames"]} her.</p>
+<table>
+<tr><th>#</th><th title="kdy jsi hrál">datum</th><th>slova</th><th>hráči (dle pořadí)</th><th>body</th><th>pořadí</th></tr>
+{foreach $result["games"] as $game}
+  <tr class="{=$iterator->getCounter() % 2 ? "odd" : "even"}">
+  {foreach $game["list"] as $row}
+    {if $row["isMe"]}
+      <td><a title="detail hry" href="{link Game:result, $game["idgameuser"]}">{=$game["idgame"]}</a></td>
+      <td>{=$game["start"]}</td>
+      <td>{foreach $row["words"] as $word}
+        {!$word|word}{=$iterator->last ? "" : ", "}
+      {/foreach}
+      </td>
+      <td>
+      {foreach $game["list"] as $row}{=$row["user"]["name"]}{if $row["user"]["online"]}<span class="online" title="probíhající hra">!</span>{/if}{=$iterator->last ? "" : ", "}{/foreach}</td>  
+      <td>{=$game["points"]}</td>
+      <td><span title="">{=$game["order"]}/{=$game["numusers"]}</span></td>       
+    {/if}
+  {/foreach}
+  </tr>
+{/foreach}
+</table>
+
+
+<style>
+  
+  table {
+    margin: 0 auto;
+    text-align: left;
+    cell-padding: 0;
+    cell-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  .odd td {
+    background: #ffffff;
+  }
+  .even td {
+    background: #eeeeee;
+  }
+  table th {
+    text-align: center;
+  }
+  table td {
+    padding: 0 1em;
+    border: 0;
+  }
+</style>

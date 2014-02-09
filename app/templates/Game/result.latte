@@ -1,0 +1,67 @@
+{block content}
+{if !$embedded}<h1>Výsledek</h1>{/if}
+<table>
+<tr><th>#</th><th></th><th>hráč</th><th>slova</th><th>body</th></tr>
+{foreach $result["list"] as $row}
+<tr class="{=$iterator->getCounter() % 2 ? "odd" : "even"}{if $row["isMe"]} myResult{/if}">
+  <td>{=$iterator->getCounter()}</td>
+  <td>{if $row["user"]["online"]} <span class="online" title="probíhající hra">!</span>{/if}</td>
+  <td>{=$row["user"]["name"]}</td>
+  <td>{foreach $row["words"] as $word}
+    {!$word|word}{=$iterator->last ? "" : ", "}
+  {/foreach}
+  </td>
+  <td>{=$row["user"]["points"]}</td>
+</tr>          
+{/foreach}
+</table>
+{if $user->canCheck && $CZ && !$embedded}
+<a title="hlasuj o korektnosti slov" href="{link Game:vote, $result["idgameuser"]}">hlasuj</a>
+{/if}
+<table id="game">
+{foreach $result["gs"] as $letter}
+{if $iterator->getCounter() - 1 % 4 == 0}<tr>{/if}
+         <td class="letter{if $letter == "ch"} small{/if}">
+         {=$letter|upper}
+         </td>
+{if $iterator->getCounter() % 4 == 0}
+</tr>{/if}         
+{/foreach}
+</table>
+
+<style>
+  table#game {
+    margin-top: 1em;
+  }
+  table#game td{
+    border: 1px solid grey;
+    text-align: center;
+  }
+  table#game td.small {
+    font-size: 60%;
+  }
+  table {
+    margin: 0 auto;
+    text-align: left;
+    cell-padding: 0;
+    cell-spacing: 0;
+    border-collapse: collapse;
+  }
+  table tr.myResult td {
+    border-top: 2px solid red;
+    border-bottom: 2px solid red;
+  }
+  .odd td {
+    background: #ffffff;
+  }
+  .even td {
+    background: #eeeeee;
+  }
+  table th {
+    text-align: center;
+  }
+  table td {
+    padding: 0 1em;
+    border: 0;
+  }
+</style>

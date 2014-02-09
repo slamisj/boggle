@@ -1,0 +1,43 @@
+2013-09-08
+  - odesílání e-mailu při založení vzkazu/uživatele
+  - automatické "už x tisíc her"
+2013-08-06
+  - optimalizace sql pro žebříček
+  - 70k her
+2013-06-22
+  - 60k her
+  - problém s kódováním ujc, slova E jsou defaultně neplatná
+  - sloupeček recalculated pro přepočet skóre
+2013-05-30
+  - anglická verze (bez odkazu)
+  - 50000 her
+2013-04-28
+  - travel
+2013-02-28
+  - rozdělení hlasování schválená/neschválená
+  - logování
+  - createdat u user, game
+2013-02-25
+  - žebříček pro isall
+2013-21-02
+  - force register
+2013-19-02
+  - zapomenuté heslo
+2013-02-10
+  - comment u hlasování, motto
+  - zvýraznění neanonymních, počet neanonymních, příprava na forceRegister
+2012-10-30
+  - žebříček počítá i s neunikátními slovy
+  - default = všechna slova
+  - kontaktní formulář
+2012-10-24
+  - toplist - statistiky návštěvnosti
+  - hodnocení všech/unikátních slov
+2012-10-23
+  - hlasování o slovech
+2012-10-22
+  - možnost anonymní hry
+  - 10000 her!
+2012-08-26
+  - v přidej se group by seznam soupeřů
+  - optimalizace žebříčku, body uložené na game_user

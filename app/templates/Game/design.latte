@@ -1,0 +1,191 @@
+{block content} 
+<script>
+$(document).ready(function(){
+     $("#game").height(($(window).height()) * 0.97 + "px");
+})
+</script>
+<table id="game" class="mobile">
+<tr><td colspan="4" id="lastWord" class="result">
+hraješ novou hru
+</td><td id="giveUp" rowspan="1" title="Ukončit hru">X</td></tr>
+<tr><td id="cwContainer" colspan="4">
+<input id="currentWord" type="text" class="text" name="word" id="frmboggleForm-word" value="" />
+</td>
+<td class="noBorder time">180</td></tr>
+
+
+<tr>
+         <td id="letter1" class="letter">E</td>
+         
+
+
+         <td id="letter2" class="letter">R</td>
+         
+
+
+         <td id="letter3" class="letter">I</td>
+         
+
+
+         <td id="letter4" class="letter small">CH</td>
+         
+  <td id="del" title="Smazat písmeno">&lt;</td>
+</tr>
+<tr>
+         <td id="letter5" class="letter">K</td>
+         
+
+
+         <td id="letter6" class="letter">T</td>
+         
+
+
+         <td id="letter7" class="letter">A</td>
+         
+
+
+         <td id="letter8" class="letter">L</td>
+         
+<td class="accent" id="accent1"></td>
+</tr>
+<tr>
+         <td id="letter9" class="letter">R</td>
+         
+
+
+         <td id="letter10" class="letter">K</td>
+         
+
+
+         <td id="letter11" class="letter">L</td>
+         
+
+
+         <td id="letter12" class="letter">T</td>
+         
+<td class="accent" id="accent2"></td>
+</tr>
+<tr>
+         <td id="letter13" class="letter">I</td>
+         
+
+
+         <td id="letter14" class="letter">E</td>
+         
+
+
+         <td id="letter15" class="letter">I</td>
+         
+
+
+         <td id="letter16" class="letter">E</td>
+         
+  <td id="addWord" title="Odeslat slovo">OK</td>
+</tr>
+</table>
+
+<form action="?do=boggleForm-submit" method="post" id="frm-boggleForm">
+<textarea cols="40" rows="10" name="words" id="frmboggleForm-words"></textarea>
+<input type="submit" class="button" name="add" id="frmboggleForm-add" value="Přidat slovo" /> 
+<input type="submit" class="button" name="send" id="frmboggleForm-send" value="Odeslat" />
+</form>
+
+<style>
+  #game {
+    margin: 0 auto;
+    font-size: 220%;
+    cursor: pointer;
+  }
+  #newWord {
+    margin: 0 auto;
+    display: block;
+  }
+  #cwContainer, #lastWord {
+    height: 2em;
+    color: #555555;
+    font-size: 50%;
+    font-weight: bold;
+  }
+  .result#lastWord{
+    font-weight: normal;
+  }
+  #game td {
+    text-align: center;
+    border: 1px solid #aaaaaa;
+    padding: 0;
+    -moz-border-radius: 5px;
+  }
+  #game td.noBorder {
+    border: 0px solid #aaaaaa;
+    width: 2em;
+  }
+  .clicked {
+    background: #00ff00;
+  }
+  .button td, #giveUp{
+    cursor: pointer;
+    -moz-border-radius: 5px;
+    max-height: 3em;
+    height: 2em;
+  }
+  #giveUp {
+    background: #cc9999;
+    font-size: 50%;
+    color: #999;
+  }
+  #delAll {
+    background: #0000cc;
+  }
+  #del {
+    background: #8888cc;
+  }
+  #addWord {
+    background: #00cc00;
+  }
+  #game td.letter {
+    padding: 0.5em;
+  }
+  #game td.letter.small {
+    font-size: 50%;
+  }
+  .found {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: left;
+    font-size: 100%;
+    color: #999999;
+  }
+  #frm-boggleForm {
+    display: none;
+  }
+  .time {
+    color: #ff0000;
+  }
+  input#currentWord {
+    border: 0;
+    font-weight: bold;
+    text-align: center;
+    font-size: 120%;
+  }
+  #cwContainer {
+   
+  }
+  h1#title{
+    display: none;
+  }
+  #game.mobile{
+    width: 100%;
+    font-size: 350%;
+  }
+  #game.mobile td{
+    width: 20%;
+  }
+  #game.mobile .time {
+    font-size: 50%;
+  }
+</style>
+
+
+
+

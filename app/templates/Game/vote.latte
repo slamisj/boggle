@@ -1,0 +1,60 @@
+{block content}
+<h1>Hlasuj</h1>
+<p>
+  Prosím přistupujte k hlasování zodpovědně, pomáháte tím zlepšit hru pro sebe i pro ostatní hráče. Klikněte na odpovídající odkaz dle toho, zda chcete slovo schválit/zamítnout.
+  Hlasování ovlivňuje, zda bude dané slovo uznáváno jako platné. Neuznávejte cizojazyčná slova. Díky.
+</p>
+<table>
+<tr><th>#</th><th>slovo</th><th>schválit</th><th>zamítnout</th></tr>
+{foreach $result["list"] as $row}
+<tr class="{=$iterator->getCounter() % 2 ? "odd" : "even"}">
+  <td>{=$iterator->getCounter()}</td>
+  <td><span class="result {=$row["status"]}">{=$row["text"]}</span></td>
+  {if $row["voted"] != Y}
+      <td><a title="slovo by mělo být uznáváno" href="{link Game:dovote, $row["idword"], 'Y'}">schválit</a></td>
+  {else}
+      <td></td>
+  {/if}
+  {if $row["voted"] != N}
+      <td><a title="slovo by NEmělo být uznáváno" href="{link Game:dovote, $row["idword"], 'N'}">zamítnout</a></td>
+  {else}
+    <td></td>
+  {/if}
+</tr>          
+{/foreach}
+</table>
+
+<script>
+$(document).ready(function(){
+  $("td a").click(function() {         
+      $.get($(this).attr("href"));
+      $(this).remove();
+      return false; 
+  });
+});
+</script>
+
+<style>
+  
+  table {
+    margin: 0 auto;
+    text-align: left;
+    cell-padding: 0;
+    cell-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  .odd td {
+    background: #ffffff;
+  }
+  .even td {
+    background: #eeeeee;
+  }
+  table th {
+    text-align: center;
+  }
+  table td {
+    padding: 0 1em;
+    border: 0;
+  }
+</style>

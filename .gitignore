@@ -1,0 +1,10 @@
+app/config/
+assets/
+libs/
+libsorig/
+log/
+temp/
+www/adminer/
+www/fb.php
+www/images/
+www/js/

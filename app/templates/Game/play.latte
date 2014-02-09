@@ -1,0 +1,321 @@
+{block content}
+<script>
+var timer = 180;
+var t;
+function subtract() {
+  if (timer == 0) {
+    clearInterval(t);
+    $("#frmboggleForm-words").text($("#frmboggleForm-words").text() + $("#currentWord").val() + ';');
+    $("#frm-boggleForm").submit();
+  } else {
+    timer -= 1;
+    $(".time").text(timer);
+  }
+}
+$(document).ready(function(){
+  var v = new Array();
+  var points = 0;
+  var currentPoints = 0;
+  var total = 0;
+  var move;
+  var current;
+  v["A"] = "Á";    
+  v["C"] = " Č";    
+  v["D"] = " Ď";    
+  v["E"] = "ÉĚ"; 
+  v["I"] = "Í";    
+  v["N"] = " Ň";    
+  v["O"] = "Ó";    
+  v["R"] = " Ř";    
+  v["S"] = " Š";    
+  v["T"] = " Ť";    
+  v["U"] = "ÚŮ"; 
+  v["Y"] = "Ý";    
+  v["Z"] = " Ž"; 
+  {if $currentUser["isMobile"]}
+     $("#game").height(($(window).height()) * 0.97 + "px");
+  {/if}
+  var seq = new Array();
+  t = setInterval("subtract()", 1000);
+  $("#frmboggleForm-add").click(function() {
+    $("#frmboggleForm-words").text($("#frmboggleForm-words").text() + $("#currentWord").val() + ';');
+    $("#currentWord").val("");         
+    $.get({link Game:ajax}, $("#frm-boggleForm").serialize(), function(data){
+      $(".found").append('<li>' + data + '</li>');
+      $("#lastWord").html(data);
+      {if $currentUser["isAll"]}
+      points = data.match(/([0-9])/);
+      total += parseInt(points[0]);
+      move = false;
+      $("tr.myResult td:eq(2)").html(total);
+      current = $("tr.myResult"); 
+      currentPoints = $(current).prev().find("td:eq(2)").text();
+      while (currentPoints != '' && total >= currentPoints) {
+        current = $(current).prev(); 
+        currentPoints = $(current).prev().find("td:eq(2)").text(); 
+        move = true
+      }
+      if (move) {
+        $(current).before($(".myResult"));
+        $(".myResult").animate({ opacity:0},200,"linear",function(){
+          $(this).animate({ opacity:1},200);
+        });
+      }
+      {/if}
+   });               
+    return false; 
+  });
+  $("#game td.letter").click(function() {
+    var newWord;
+    var a;
+    newWord = $("#currentWord").val() + $(this).text();
+    seq.push($(this).attr("id"));
+    $(this).addClass("clicked");
+    $("#currentWord").val(newWord);
+    a = v[$(this).text()];
+    $("#accent1").text(a.substring(0, 1));
+    $("#accent2").text(a.substring(1, 2));
+  });
+  $("#game td.accent").click(function() {
+    var newWord;
+    newWord = $("#currentWord").val();
+    newWord = newWord.substring(0, newWord.length - 1) + $(this).text();
+    $("#accent1").text("");
+    $("#accent2").text("");
+    $("#currentWord").val(newWord);
+  });
+  $("#addWord").click(function() {
+    if ($("#currentWord").val().length > 0) {
+      $("#game td").removeClass("clicked");
+      $("#accent1").text("");
+      $("#accent2").text("");
+      $("#frmboggleForm-add").click(); 
+    }
+  });
+  $("#giveUp").click(function() {
+    if (confirm('Opravdu chceš skončit před vypršením limitu?')) {
+      $("#frm-boggleForm").submit();
+    } 
+  });
+  $("#delAll").click(function() {
+    $("#currentWord").val(""); 
+    $("#game td").removeClass("clicked");
+    $("#accent1").text("");
+    $("#accent2").text("");
+    seq = new Array();
+  });
+  $("#del").click(function() {
+    var newWord;
+    newWord = $("#currentWord").val();
+    newWord = newWord.substring(0, newWord.length - 1);
+    $("#currentWord").val(newWord); 
+    $("#" + seq.pop()).removeClass("clicked");
+    $("#accent1").text("");
+    $("#accent2").text("");
+  });
+  $(document).keydown(
+    function(event) {
+      if (event.which == 13 ) {
+         event.preventDefault();
+         $("#addWord").click(); 
+      }
+    }
+  );
+ });
+</script>
+{if !$currentUser["isMobile"] && !$currentUser["isAll"]} 
+  {if $game["isNew"]}hraješ novou hru
+  {else}hraješ proti 
+  {foreach $game["users"] as $user}{=$user["name"]}{if $user["online"]}<span class="online" title="probíhající hra">!</span>{/if}{=$iterator->last ? "" : ", "}{/foreach}{/if}
+{/if}
+{if $currentUser["isAnonymous"]}
+  <p>Anonymní režim! Nebudeš mít k dispozici statistiky a své odehrané hry, doporučujeme 
+  <a n:href="Sign:reg">registraci</a>.</p>
+{/if}
+{if !$currentUser["isMobile"]}
+<ul class="found">
+
+</ul>
+{if $currentUser["isAll"]}
+<table id="list">
+{foreach $result["list"] as $row}
+<tr class="{=$iterator->getCounter() % 2 ? "odd" : "even"}{if $row["isMe"]} myResult{/if}">
+  <td></td>
+  <td>{=$row["user"]["name"]}</td>
+  <td>{=$row["user"]["points"]}</td>
+</tr>          
+{/foreach}
+</table>
+{/if}
+{/if}
+<table id="game" {if $currentUser["isMobile"]}class="mobile"{/if}>
+<tr><td colspan="4" id="lastWord" class="result">
+{if $currentUser["isMobile"]}
+{if $game["isNew"]}hraješ novou hru
+{else}vs {=count($game["users"])} 
+{/if}
+{/if}
+</td><td id="giveUp" rowspan="1" title="Ukončit hru">X</td></tr>
+<tr><td id="cwContainer" colspan="4">
+<input id="currentWord" type="text" class="text" name="word" id="frmboggleForm-word" value="" />
+</td>
+{if !$currentUser["isMobile"]}
+<td class="noBorder"></td></tr>
+{else}
+<td class="noBorder time">180</td></tr>
+{/if}
+
+
+{foreach $game["gameGrid"] as $key => $data}
+{if (($iterator->getCounter() - 1) % 4) == 0}<tr>{/if}
+         <td id="letter{=$iterator->getCounter()}" class="letter{if $data["letter"] == "ch"} small{/if}">{=$data["letter"]|upper}</td>
+         
+{if $iterator->getCounter() == 4}
+  {if !$currentUser["isMobile"]}
+  <td class="noBorder time">180</td>
+  {else}
+  <td id="del" title="Smazat písmeno">&lt;</td>
+  {/if}
+{elseif $iterator->getCounter() == 8}
+<td class="accent" id="accent1"></td>
+{elseif $iterator->getCounter() == 12}
+<td class="accent" id="accent2"></td>
+{elseif $iterator->getCounter() == 16}
+  {if !$currentUser["isMobile"]}
+  <td class="noBorder"></td>
+  {else}
+  <td id="addWord" title="Odeslat slovo">OK</td>
+  {/if}
+{/if}
+{if $iterator->getCounter() % 4 == 0}</tr>{/if}         
+{/foreach}
+{if !$currentUser["isMobile"]}
+<tr class="button">
+    {*<td id="giveUp" title="Ukončit hru">X</td>*}
+    <td id="delAll" title="Smazat slovo">&lt;&lt;</td>
+    <td id="del" title="Smazat písmeno">&lt;</td>
+    <td colspan="2" id="addWord" title="Odeslat slovo">OK</td></tr>
+{/if}
+</table>
+
+<form action="?do=boggleForm-submit" method="post" id="frm-boggleForm">
+<textarea cols="40" rows="10" name="words" id="frmboggleForm-words"></textarea>
+<input type="submit" class="button" name="add" id="frmboggleForm-add" value="Přidat slovo" /> 
+<input type="submit" class="button" name="send" id="frmboggleForm-send" value="Odeslat" />
+</form>
+
+<style>
+  #game {
+    margin: 1em auto;
+    font-size: 220%;
+    cursor: pointer;
+  }
+  #newWord {
+    margin: 0 auto;
+    display: block;
+  }
+  #cwContainer, #lastWord {
+    height: 2em;
+    color: #555555;
+    font-size: 50%;
+    font-weight: bold;
+  }
+  .result#lastWord{
+    font-weight: normal;
+  }
+  #game td {
+    text-align: center;
+    border: 1px solid #aaaaaa;
+    padding: 0;
+    -moz-border-radius: 5px;
+  }
+  #game td.noBorder {
+    border: 0px solid #aaaaaa;
+    width: 2em;
+  }
+  .clicked {
+    background: #00ff00;
+  }
+  .button td, #giveUp{
+    cursor: pointer;
+    -moz-border-radius: 5px;
+    max-height: 3em;
+    height: 2em;
+  }
+  #giveUp {
+    background: #cc9999;
+    font-size: 50%;
+    color: #999;
+  }
+  #delAll {
+    background: #0000cc;
+  }
+  #del {
+    background: #8888cc;
+  }
+  #addWord {
+    background: #00cc00;
+  }
+  #game td.letter {
+    padding: 0.5em;
+  }
+  #game td.letter.small {
+    font-size: 50%;
+  }
+  .found {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: left;
+    font-size: 100%;
+    color: #999999;
+  }
+  #list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: left;
+    font-size: 100%;
+    color: #000;
+    border-spacing:0;
+    border-collapse:collapse;
+  }
+  #list td {
+    padding: 0.5em;
+  }
+  #list .myResult {
+    background: #f99;
+    font-weight: bold;
+  }
+  #frm-boggleForm {
+    display: none;
+  }
+  .time {
+    color: #ff0000;
+  }
+  input#currentWord {
+    border: 0;
+    font-weight: bold;
+    text-align: center;
+    font-size: 120%;
+  }
+  #cwContainer {
+   
+  }
+  h1#title{
+    display: none;
+  }
+{if $currentUser["isMobile"]}
+  #game.mobile{
+    width: 100%;
+    font-size: 350%;
+    margin: 0 auto;
+  }
+  #game.mobile td{
+    width: 20%;
+  }
+  #game.mobile .time {
+    font-size: 50%;
+  }
+{/if}
+</style>
