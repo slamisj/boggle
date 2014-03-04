@@ -48,7 +48,7 @@ class JsonPresenter extends BasePresenter
         $this->getUser()->login($user, $pwd);
         $secret = $this->getUser()->getIdentity()->secret;
       } catch (NAuthenticationException $e) {
-        if ($e->getCode() == IAuthenticator::IDENTITY_NOT_FOUND) {
+        /*if ($e->getCode() == IAuthenticator::IDENTITY_NOT_FOUND) {
           $idUser = $this->getModel()->register(array(
               'email' => $user,
               'name' => $user,
@@ -56,9 +56,9 @@ class JsonPresenter extends BasePresenter
               ));
           $this->getUser()->login($user, $pwd);
           $secret = $this->getUser()->getIdentity()->secret;
-        } else {
+        } else {*/
           $secret = "NO_USER";
-        }
+        //}
       }
 
       $data["secret"] = $secret;
