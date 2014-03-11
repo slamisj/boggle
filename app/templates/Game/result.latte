@@ -1,18 +1,18 @@
 {block content}
 {if !$embedded}<h1>Výsledek</h1>{/if}
 <table>
-<tr><th>#</th><th></th><th>hráč</th><th>slova</th><th>body</th></tr>
+<tr><th>#</th><th></th><th>hráč</th><th>body</th><th>slova</th></tr>
 {foreach $result["list"] as $row}
 <tr class="{=$iterator->getCounter() % 2 ? "odd" : "even"}{if $row["isMe"]} myResult{/if}">
   <td>{=$iterator->getCounter()}</td>
   <td>{if $row["user"]["online"]} <span class="online" title="probíhající hra">!</span>{/if}</td>
   <td>{=$row["user"]["name"]}</td>
-  <td>{foreach $row["words"] as $word}
+  <td>{=$row["user"]["points"]}</td>
+  <td{if $embedded} class="words"{/if}>{foreach $row["words"] as $word}
     {!$word|word}{=$iterator->last ? "" : ", "}
   {/foreach}
   </td>
-  <td>{=$row["user"]["points"]}</td>
-</tr>          
+</tr>
 {/foreach}
 </table>
 {if $user->canCheck && $CZ && !$embedded}
@@ -25,7 +25,7 @@
          {=$letter|upper}
          </td>
 {if $iterator->getCounter() % 4 == 0}
-</tr>{/if}         
+</tr>{/if}
 {/foreach}
 </table>
 

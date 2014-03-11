@@ -25,9 +25,9 @@ class HomepagePresenter extends BasePresenter
 	  $this->template->result = $stats;
     $userR = $this->getModel()->getUserRec($this->getUser()->id);
     //TODO!
-    $this->template->username = $this->getUser()->isLoggedIn() ? $userR["name"] : ""; 
+    $this->template->username = $this->getUser()->isLoggedIn() ? $userR["name"] : "";
     $this->template->user = $userR;
-    //$this->template->forceRegister = $this->getModel()->forceRegister($this->getUser()->isLoggedIn() ? $this->getUser()->id : ""); 
+    //$this->template->forceRegister = $this->getModel()->forceRegister($this->getUser()->isLoggedIn() ? $this->getUser()->id : "");
     $others = array(
       "Najdi za tři minuty více slov než ostatní.",
       "Buď originální.",
@@ -37,9 +37,10 @@ class HomepagePresenter extends BasePresenter
       "Odehráli jsme již více než " . (floor($stats["numgames"] / 10000)) * 10000 . " her, díky za přízeň!",
       "Vytiskni si Boggle na cesty.",
       "Vyzkoušej anglickou verzi, bodují se již třípísmenná slova, viz menu.",
-      "Neuznalo se ti krásné slovo? Hlasuj o něm."
+      "Neuznalo se ti krásné slovo? Hlasuj o něm.",
+      "Návyková hra se slovy."
     );
-    $motto = "Návyková hra se slovy.";
+    $motto = "Nově též verze pro android, viz odkaz v patičce.";
     if (rand(1, 3) == 1) {
       $motto = $others[array_rand($others)];
     }

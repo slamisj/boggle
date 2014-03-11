@@ -75,7 +75,7 @@ span.online {
   text-decoration: line-through;
 }
 .result .small {
-  font-size: 100%;               
+  font-size: 100%;
 }
 .button #giveUp {
     background: #cc0000;
@@ -91,4 +91,7 @@ span.online {
 }
 span.anonymous {
   color: gray;
+}
+td.words {
+  font-size: 80% ;
 }

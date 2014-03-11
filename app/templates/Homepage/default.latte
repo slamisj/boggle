@@ -2,7 +2,7 @@
 <p id="motto">{!=$motto}</p>
 {if $username}
   {if $user->isAnonymous}
-  <p>Anonymní režim! Nebudeš mít k dispozici statistiky a své odehrané hry, doporučujeme 
+  <p>Anonymní režim! Nebudeš mít k dispozici statistiky a své odehrané hry, doporučujeme
   <a n:href="Sign:reg">registraci</a>.</p>
   {/if}
   <p>{=$username}</p>
@@ -44,6 +44,7 @@
 <h2 class="small"><a n:href="Sign:out" title="Odhlášení">Odhlaš se</a></h2>
 {/if}
 <p>{=$result["numusers"]} hráčů, {=$result["numgames"]} her.</p>
+<p><a href="http://play.google.com/store/apps/details?id=cz.boggle">Verze pro android</a></p>
 <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fboggle.cz%2F&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; margin: 0 auto; width:450px; height:21px;" allowTransparency="true"></iframe>
 <a href="http://www.toplist.cz/stat/1424758" title="Statistiky návštěvnosti"><script language="JavaScript" type="text/javascript">
 <!--
