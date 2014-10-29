@@ -9,15 +9,15 @@
 abstract class BasePresenter extends NPresenter
 {
   public function getModel() {
-      $model = new GameModel(); 
+      $model = new GameModel();
       $model->userId = $this->getUser()->id;
       return $model;
   }
-  
+
   public function loginUserBySecret()
   {
     $secret = $this->context->getService('httpRequest')->getQuery('secret');
-    if ($secret) { 
+    if ($secret) {
       $row = $this->getModel()->getUserBySecret($secret);
       $this->getUser()->login(new NIdentity($row['id'], null, $row));
       return $row['id'];
@@ -26,8 +26,8 @@ abstract class BasePresenter extends NPresenter
 
   public function getFB()
   {
-      $model = new FB((array) NEnvironment::getConfig()->facebook); 
-      return $model; 
+      $model = new FB((array) NEnvironment::getConfig()->facebook);
+      return $model;
   }
 
   public function loggedFB()
@@ -47,7 +47,7 @@ abstract class BasePresenter extends NPresenter
     }
     return true;
   }
-  
+
 
   public function beforeRender() {
     $url = $this->getHttpRequest()->getUrl();
@@ -57,7 +57,7 @@ abstract class BasePresenter extends NPresenter
     $this->template->SUB = SUB;
     $this->template->CZ = CZ;
     $this->template->EN = EN;
-    $this->template->embedded = $this->context->getService('httpRequest')->getQuery('embedded'); 
+    $this->template->embedded = $this->context->getService('httpRequest')->getQuery('embedded');
     //echo 'id' . $this->getUser()->id . ($this->getUser()->isLoggedIn() ? 'Y' : 'N');
   }
   public function log($msg) {
@@ -80,20 +80,20 @@ abstract class BasePresenter extends NPresenter
           $ret .= "<td$class>" . $val . "</td>";
           if ($key % 4 == 3) {
             $ret .= "</tr>";
-          }  
+          }
         }
         $ret .= "</table>";
         return $ret;
     });
     $template->registerHelper('word', function ($word, $toUpper = false) {
         $ret = ((EN && $word["points"] > 0)? "<a href=\"http://translate.google.cz/#en/cs/" . $word["text"] . '" target="_blank">' : "") . "<span title=\""
-             . (in_array($word["status"], array("I", "W", "E")) ? "Chybné slovo" : ($word["numusers"] > 0 ? "Slovo nalezli i další hráči" : "Uznané slovo"))
+             . (in_array($word["status"], array("MI", "I", "W", "E")) ? "Chybné slovo" : ($word["numusers"] > 0 ? "Slovo nalezli i další hráči" : "Uznané slovo"))
              . "\" class=\"result "
-             . ($word["numusers"] > 0 && !in_array($word["status"], array("I", "W", "E")) ? "DUPLICATE" : $word["status"]) . "\">"
-             . ($toUpper ? NStrings::upper(NTemplateHelpers::escapeHtml($word["text"])) : NTemplateHelpers::escapeHtml($word["text"])) 
+             . ($word["numusers"] > 0 && !in_array($word["status"], array("MI", "I", "W", "E")) ? "DUPLICATE" : $word["status"]) . "\">"
+             . ($toUpper ? NStrings::upper(NTemplateHelpers::escapeHtml($word["text"])) : NTemplateHelpers::escapeHtml($word["text"]))
              . "&thinsp;<span class=\"small\">(" . $word["points"] . ")</span>"
              . "</span>" . (EN ? "</a>" : "");
-        
+
         return $ret;
     });
     return $template;

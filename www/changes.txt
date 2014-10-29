@@ -1,3 +1,8 @@
+2014-10-14
+  - smazána slova > 10
+  - word -> kódování utf8_bin, unikátní klíč text + lang
+2014-10-13
+  - manuálně zamítnuté slovo se zobrazovalo žlutě
 2013-09-08
   - odesílání e-mailu při založení vzkazu/uživatele
   - automatické "už x tisíc her"

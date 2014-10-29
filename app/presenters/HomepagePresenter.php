@@ -38,12 +38,10 @@ class HomepagePresenter extends BasePresenter
       "Vytiskni si Boggle na cesty.",
       "Vyzkoušej anglickou verzi, bodují se již třípísmenná slova, viz menu.",
       "Neuznalo se ti krásné slovo? Hlasuj o něm.",
-      "Návyková hra se slovy."
+      "Návyková hra se slovy.",
+      "Zkus verzi pro android, viz odkaz v patičce."
     );
-    $motto = "Nově též verze pro android, viz odkaz v patičce.";
-    if (rand(1, 3) == 1) {
-      $motto = $others[array_rand($others)];
-    }
+    $motto = $others[array_rand($others)];
     $this->template->motto = $motto;
 	}
 
